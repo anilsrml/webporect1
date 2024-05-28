@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login Page</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Edu+NSW+ACT+Foundation:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Righteous&display=swap" rel="stylesheet">
+
+    <style>
+
+            body {
+            background-image: url('images/hotel_image1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Righteous", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+
+        #login {
+            justify-content: center;
+            align-items: center;
+            max-width: 600px;
+            margin-top: 40px;
+            margin-left: 550px;
+            background-color: rgb(147, 198, 218);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+        }
+
+        #register {
+            margin-left: 0px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+            width: 70%;
+            background-color: rgb(147, 198, 218);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+        }
+
+        #input {
+            margin-left: 200px;
+            background-color: rgb(74, 198, 185);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+            width: 70%;
+        }
+        
+        #nav-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 60px;
+            width: 100%;
+            background-color: rgb(138, 202, 237);
+            display: flex;
+            justify-content: flex-start; 
+            align-items: center; 
+            padding-left: 20px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #nav-bar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        #nav-bar li {
+            margin-right: 20px;
+        }
+
+        #nav-bar a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s; 
+        }
+
+        #nav-bar a:hover {
+            color: #555; 
+        }
+
+        .title {
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        .btn:hover {
+            background-color: rgb(15, 32, 41) !important;
+            border-radius: 6px;
+            border: 0;
+        }
+
+      
+#register {
+    display: none;
+    transform: translateX(60%);
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 1s ease-in-out;
+}
+
+#register.show {
+    display: block;
+    transform: translateX(0);
+    opacity: 1;
+}
+
+#login {
+    transform: translateX(0);
+    opacity: 1;
+    transition: transform 0.5s  ease-in-out, opacity 1s ease-in-out;
+}
+
+#login.hide {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+#star-rating{
+    font-size:x-large;
+}
+.stars:hover{
+    cursor: pointer;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h5 id="github">https://github.com/anilsrml/webporect1</h5>
+        <div id="login">
+            <h2 id="text-login" style="text-align: center;">Giriş</h2>
+            <form id="login-form" action="login.php" method="POST">
+                <div class="form-group">
+                    <label for="login-username" style="font-weight: 700;">Kullanıcı Adı</label>
+                    <input type="text" class="form-control" id="login-username" name="username" placeholder=" ">
+                </div>
+                <div class="form-group">
+                    <label for="login-password" style="font-weight: 700;">Şifre</label>
+                    <input type="password" class="form-control" id="login-password" name="password" placeholder="">
+                </div>
+                <button type="button" class="btn btn-primary btn-block" onclick="loginUser()">Giriş Yap</button>
+                <button type="button" class="btn btn-secondary btn-block" onclick="showRegisterForm()">Kayıt Ol</button>
+            </form>
+        </div>
+
+        <div id="register" style="display: none;">
+            <form id="register-form" action="register.php" method="POST">
+                <h2 class="text-center title">Kayıt Ol</h2>
+                <div class="form-group">
+                    <label for="register-username" style="font-weight: 700;">Kullanıcı Adı</label>
+                    <input type="text" class="form-control" id="register-username" name="username" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="register-password" style="font-weight: 700;">Şifre</label>
+                    <input type="password" class="form-control" id="register-password" name="password" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="register-email" style="font-weight: 700;">E-posta</label>
+                    <input type="email" class="form-control" id="register-email" name="email" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="register-birthday" style="font-weight: 700;">Doğum Tarihi</label>
+                    <input type="date" class="form-control" id="register-birthday" name="birthday">
+                </div>
+                <button type="button" class="btn btn-success btn-block" onclick="registerUser()">Kaydet</button>
+                <button type="button" class="btn btn-secondary btn-block" onclick="showLoginForm()">Geri Dön</button>
+            </form>
+        </div>
+
+        <div id="input-form" style="display: none;">
+            <div id="nav-bar">
+                <ul>
+                    <li><button type="button" id="info" onclick="information()">Bilgilerim</button></li>
+                    <li><button type="button" id="out">Çıkış Yap</button></li>
+                </ul>
+            </div>
+            <div id="input">
+                <div id="star-rating">
+                    <p>Yıldız Derecesi:</p>
+                    <div class="stars">
+                        <span class="star" onclick="setRating(1)">&#9733;</span>
+                        <span class="star" onclick="setRating(2)">&#9733;</span>
+                        <span class="star" onclick="setRating(3)">&#9733;</span>
+                        <span class="star" onclick="setRating(4)">&#9733;</span>
+                        <span class="star" onclick="setRating(5)">&#9733;</span>
+                    </div>
+                </div>
+                <h1 class="text-center title">Hoşgeldiniz</h1>
+                <h2 class="text-center title">Memnnuniyetinizi Yıldızlamayı Unutmayın</h2>
+                <div class="form-group">
+                    <label for="user-input" style="font-weight: 700;">Şikayet ve Dilek Alanı</label>
+                    <input type="text" class="form-control" id="user-input" placeholder="Metin girişi">
+                </div>
+                <button type="button" class="btn btn-success btn-block" onclick="saveInput()">Mesajı Yolla</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+
+var userRating = 0;
+
+
+function setRating(rating) {
+    userRating = rating;
+    highlightStars(rating);
+}
+
+
+function highlightStars(rating) {
+    var stars = document.getElementsByClassName("star");
+    for (var i = 0; i < stars.length; i++) {
+        if (i < rating) {
+            stars[i].style.color = "gold"; 
+        } else {
+            stars[i].style.color = "black";
+        }
+    }
+}
+
+function saveRating() {
+    var username = document.getElementById("login-username").value;
+
+   
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText.includes("success")) {
+                alert("Puanlamanız başarılı!");
+            } else {
+                alert("Başarısız işlem.");
+            }
+        }
+    };
+    xhr.open("POST", "save_input.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("username=" + username + "&rating=" + userRating);
+}
+
+
+
+
+
+
+function showRegisterForm() {
+    var registerForm = document.getElementById('register');
+    var loginForm = document.getElementById('login');
+    
+    loginForm.classList.add('hide');
+    setTimeout(function() {
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+        setTimeout(function() {
+            registerForm.classList.add('show');
+        }, 10); // küçük bir gecikme, geçişin başlaması için
+    }, 500); // login formun kaybolma süresi
+}
+
+function showLoginForm() {
+    var registerForm = document.getElementById('register');
+    var loginForm = document.getElementById('login');
+    
+    registerForm.classList.remove('show');
+    setTimeout(function() {
+        registerForm.style.display = 'none';
+        loginForm.style.display = 'block';
+        setTimeout(function() {
+            loginForm.classList.remove('hide');
+        }, 10); // küçük bir gecikme, geçişin başlaması için
+    }, 500); // register formun kaybolma süresi
+}
+
+
+        function loginUser() {
+            var username = document.getElementById("login-username").value;
+            var password = document.getElementById("login-password").value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    if (this.responseText.includes("success")) {
+                        document.getElementById('login').style.display = 'none';
+                        document.getElementById('input-form').style.display = 'block';
+                    } else {
+                        alert("Giriş başarısız. Kullanıcı adınızı ve şifrenizi kontrol edin.");
+                        document.getElementById('login').style.display = 'block';
+                        document.getElementById('text-login').style.display = 'block';
+                    }
+                }
+            };
+            xhr.open("POST", "login.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send("username=" + username + "&password=" + password);
+        }
+
+        function registerUser() {
+    var form = document.getElementById("register-form");
+    var formData = new FormData(form);
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText.includes("success")) {
+                alert("Kayıt başarılı.");
+                showLoginForm();
+            } else {
+                // Kayıt başarısız olduğunda da uyarı verilecek, ancak işlem durdurulmayacak.
+                alert("Kayıt başarısız.Lütfen tekrar deneyiniz");
+            }
+        }
+    };
+    xhr.open("POST", "register.php", true);
+    xhr.send(formData);
+}
+
+
+
+        document.getElementById("out").addEventListener("click", function() {
+            window.location.href = "http://95.130.171.20/~st22360859018";
+        });
+
+        function information() {
+            var username = document.getElementById("login-username").value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var userInfo = JSON.parse(this.responseText);
+                    var infoHtml = '<h2 class="text-center title">Profil Bilgileri</h2>';
+                    infoHtml += '<p><strong>Kullanıcı Adı:</strong> ' + userInfo.username + '</p>';
+                    infoHtml += '<p><strong>E-posta:</strong> ' + userInfo.email + '</p>';
+                    infoHtml += '<p><strong>Doğum Tarihi:</strong> ' + userInfo.birthday + '</p>';
+                    infoHtml += '<p><strong>Şifre:</strong> ' + userInfo.password + '</p>'; // Şifre alanının burada olduğundan emin olun
+                    infoHtml += '<button type="button" class="btn btn-danger btn-block" onclick="goBack()">Geri Dön</button>';
+                    document.getElementById('input').innerHTML = infoHtml;
+                }
+            };
+            xhr.open("POST", "profile.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send("username=" + username);
+        }
+
+
+        function goBack() {
+            var inputDiv = document.getElementById('input');
+            inputDiv.innerHTML = `
+        
+                <h1 class="text-center title">Hoşgeldiniz</h1>
+                <h2 class="text-center title"Memnnuniyetinizi Yıldızlamayı Unutmayın</h2>
+                <div class="form-group">
+                    <label for="user-input" style="font-weight: 700;">Şikayet ve Dilek Alanı</label>
+                    <input type="text" class="form-control" id="user-input" placeholder="Metin girişi">
+                </div>
+                <button type="button" class="btn btn-success btn-block" onclick="saveInput()">Mesajı Yolla</button>`;
+        }
+
+
+       function saveInput() {
+    var userInput = document.getElementById("user-input").value;
+    var username = document.getElementById("login-username").value;
+
+    if (userInput === "") {
+        alert("Lütfen bir metin girin.");
+        return;
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText.includes("success")) {
+                alert("Mesajınız kaydedildi!");
+            } else {
+                alert("Mesajınızı kaydetme başarısız oldu.");
+            }
+        }
+    };
+    xhr.open("POST", "save_input.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("userInput=" + userInput + "&username=" + username + "&rating=" + userRating);
+}
+
+    </script>
+</body>
+</html>
+
+
